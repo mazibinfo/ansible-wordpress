@@ -1,0 +1,19 @@
+#System Settings
+php_modules: ['php-curl', 'php-gd', 'php-mbstring', 'php-xml', 'php-xmlrpc', 'php-soap', 'php-intl', 'php-zip']
+
+#MySQL Settings
+mysql_root_password: "Cloudly@123"
+mysql_db: "wordpress"
+mysql_user: "ansible"
+mysql_password: "123456"
+
+#HTTP Settings
+http_host: "ansible2.cloudly.us"
+http_conf: "ansible2.cloudly.us.conf"
+http_port: "80"
+
+#PHP Settings
+max_execution_time: "60"
+max_file_uploads: "40"
+post_max_size: "16M"
+upload_max_filesize: "4M"

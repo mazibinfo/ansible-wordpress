@@ -1,0 +1,34 @@
+- name: Wordpress Application
+  hosts: ec2_instance2
+  become: true
+  vars_files:
+  - vars/default.yml
+
+  tasks:
+  - name: Install prerequisites
+    apt: name=aptitude update_cache=yes state=latest force_apt_get=yes
+    tags: [system]
+
+  - name: Include Apache playbook
+    include_tasks: modules/apache2.yml
+
+  - name: Include PHP playbook
+    include_tasks: modules/php.yml
+
+  - name: Include MySQL playbook
+    include_tasks: modules/mysql.yml
+
+  - name: Include Wordpress playbook
+    include_tasks: modules/wordpress.yml
+
+
+  handlers:
+  - name: Reload Apache
+    service:
+      name: apache2
+      state: reloaded
+
+  - name: Restart Apache
+    service:
+      name: apache2
+      state: restarted

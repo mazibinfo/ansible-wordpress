@@ -1,0 +1,47 @@
+- hosts: all
+  become: true
+  vars_files:
+  - vars/default.yml
+
+  tasks:
+  # PHP Configuration
+  # - name: Set up php-info
+  #   template:
+  #     src: "files/info.php.j2"
+  #     dest: "/var/www/{{ http_host }}/wordpress/info.php"
+  #   tags: [wordpress]
+
+  # - name: Get path to php.ini
+  #   find:
+  #     paths: /etc/php
+  #     file_type: directory
+  #     recurse: no
+  #   register: ini_path
+
+  - name: Update php.ini max_execution_time
+    replace:
+      dest: "/etc/php/8.1/apache2/php.ini"
+      regexp: '^max_execution_time.*$'
+      replace: 'max_execution_time = 60'
+      backup: yes
+
+  # - name: Update php.ini max_file_uploads
+  #   replace:
+  #     dest: "{{ ini_path.files[0].path }}/apache2/php.ini"
+  #     regexp: "^max_file_uploads.*$"
+  #     replace: "max_file_uploads = {{max_file_uploads}}"
+  #     backup: yes
+
+  # - name: Update php.ini post_max_size
+  #   replace:
+  #     dest: "{{ ini_path.files[0].path }}/apache2/php.ini"
+  #     regexp: "^post_max_size.*$"
+  #     replace: "post_max_size = {{post_max_size}}"
+  #     backup: yes
+
+  # - name: Update php.ini upload_max_filesize
+  #   replace:
+  #     dest: "{{ ini_path.files[0].path }}/apache2/php.ini"
+  #     regexp: "^upload_max_filesize.*$"
+  #     replace: "upload_max_filesize = {{upload_max_filesize}}"
+  #     backup: yes
